@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import origamis.springframework.beerservice.model.BeerDto;
 import origamis.springframework.beerservice.model.BeerStyle;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -27,17 +28,17 @@ class BeerControllerTest {
 
     @Test
     void getBeerById() throws Exception {
+        // act and assert
         mockMvc.perform(get("/api/v1/beer/" + UUID.randomUUID()))
                 .andExpect(status().isOk());
     }
 
     @Test
     void saveBeer() throws Exception {
-        var beerDto = BeerDto.builder()
-                .beerName("Corona")
-                .beerStyle(BeerStyle.ALE)
-                .build();
+        // arrange
+        var beerDto = createBeerDto();
 
+        // act and assert
         mockMvc.perform(post("/api/v1/beer")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(beerDto)))
@@ -46,14 +47,22 @@ class BeerControllerTest {
 
     @Test
     void updateBeer() throws Exception {
-        var beerDto = BeerDto.builder()
-                .beerName("Corona")
-                .beerStyle(BeerStyle.ALE)
-                .build();
+        // arrange
+        var beerDto = createBeerDto();
 
+        // act and assert
         mockMvc.perform(put("/api/v1/beer/" + UUID.randomUUID())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(beerDto)))
                 .andExpect(status().isNoContent());
+    }
+
+    private BeerDto createBeerDto() {
+        return BeerDto.builder()
+                .beerName("Corona")
+                .beerStyle(BeerStyle.ALE)
+                .upc(123L)
+                .price(new BigDecimal("9.99"))
+                .build();
     }
 }
