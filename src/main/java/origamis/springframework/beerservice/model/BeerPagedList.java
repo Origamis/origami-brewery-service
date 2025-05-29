@@ -1,4 +1,4 @@
-package origamis.springframework.beerservice.domain;
+package origamis.springframework.beerservice.model;
 
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
