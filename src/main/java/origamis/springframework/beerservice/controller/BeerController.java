@@ -3,7 +3,7 @@ package origamis.springframework.beerservice.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import origamis.springframework.beerservice.domain.BeerDto;
+import origamis.springframework.beerservice.model.BeerDto;
 
 import java.util.UUID;
 
