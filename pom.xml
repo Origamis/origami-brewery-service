@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>origamis.springframework</groupId>
-    <artifactId>origami-beer-service</artifactId>
+    <artifactId>origami-brewery-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>origami-beer-service</name>
     <description>origami-beer-service</description>
