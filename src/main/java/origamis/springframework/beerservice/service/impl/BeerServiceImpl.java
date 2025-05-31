@@ -19,10 +19,17 @@ public class BeerServiceImpl implements BeerService {
     private final BeerMapper beerMapper;
 
     @Override
-    public BeerDto getBeerById(UUID id) {
-        return beerMapper.toDto(beerRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("Beer not found with ID: " + id)
-        ));
+    public BeerDto getBeerById(UUID id, Boolean showInventoryOnHand) {
+        
+        if (showInventoryOnHand) {
+            return beerMapper.toDtoWithInventory(beerRepository.findById(id).orElseThrow(
+                    () -> new NotFoundException("Beer not found with ID: " + id)
+            ));
+        } else {
+            return beerMapper.toDto(beerRepository.findById(id).orElseThrow(
+                    () -> new NotFoundException("Beer not found with ID: " + id)
+            ));
+        }
     }
 
     @Override
@@ -43,9 +50,16 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public List<BeerDto> listBeers() {
-        return beerRepository.findAll().stream()
-                .map(beerMapper::toDto)
-                .toList();
+    public List<BeerDto> listBeers(Boolean showInventoryOnHand) {
+        
+        if (showInventoryOnHand) {
+            return beerRepository.findAll().stream()
+                    .map(beerMapper::toDtoWithInventory)
+                    .toList();
+        } else {
+            return beerRepository.findAll().stream()
+                    .map(beerMapper::toDto)
+                    .toList();
+        }
     }
 }

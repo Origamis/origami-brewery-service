@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import origamis.springframework.beerservice.model.BeerDto;
 import origamis.springframework.beerservice.service.BeerService;
@@ -25,8 +26,8 @@ public class BeerController {
     private final BeerService beerService;
 
     @GetMapping("/{beerId}")
-    public ResponseEntity<BeerDto> getBeerById(@PathVariable UUID beerId) {
-        return ResponseEntity.ok(beerService.getBeerById(beerId));
+    public ResponseEntity<BeerDto> getBeerById(@PathVariable UUID beerId, @RequestParam(required = false, defaultValue = "false") Boolean showInventoryOnHand) {
+        return ResponseEntity.ok(beerService.getBeerById(beerId, showInventoryOnHand));
     }
 
     @PostMapping
@@ -40,7 +41,7 @@ public class BeerController {
     }
     
     @GetMapping("/list")
-    public ResponseEntity<List<BeerDto>> listBeers() {
-        return ResponseEntity.ok(beerService.listBeers());
+    public ResponseEntity<List<BeerDto>> listBeers(@RequestParam(required = false, defaultValue = "false") Boolean showInventoryOnHand) {
+        return ResponseEntity.ok(beerService.listBeers(showInventoryOnHand));
     }
 }

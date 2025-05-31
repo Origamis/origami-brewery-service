@@ -10,4 +10,6 @@ public interface BeerMapper {
     BeerDto toDto(Beer beer);
     
     Beer toEntity(BeerDto beerDto);
+    
+    BeerDto toDtoWithInventory(Beer beer);
 }
