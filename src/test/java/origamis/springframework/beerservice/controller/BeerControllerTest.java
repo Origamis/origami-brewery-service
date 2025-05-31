@@ -5,9 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import origamis.springframework.beerservice.bootstrap.BeerLoader;
 import origamis.springframework.beerservice.model.BeerDto;
 import origamis.springframework.beerservice.model.BeerStyle;
+import origamis.springframework.beerservice.service.BeerService;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -23,6 +26,9 @@ class BeerControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    @MockitoBean
+    BeerService beerService;
+    
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -61,7 +67,7 @@ class BeerControllerTest {
         return BeerDto.builder()
                 .beerName("Corona")
                 .beerStyle(BeerStyle.ALE)
-                .upc(123L)
+                .upc(BeerLoader.BEER_1_UPC)
                 .price(new BigDecimal("9.99"))
                 .build();
     }
