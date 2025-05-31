@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import origamis.springframework.beerservice.model.BeerDto;
 import origamis.springframework.beerservice.service.BeerService;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -36,5 +37,10 @@ public class BeerController {
     @PutMapping("/{beerId}")
     public ResponseEntity<BeerDto> updateBeer(@PathVariable UUID beerId, @Validated @RequestBody BeerDto beerDto) {
         return new ResponseEntity<>(beerService.updateBeer(beerId, beerDto), HttpStatus.NO_CONTENT);
+    }
+    
+    @GetMapping("/list")
+    public ResponseEntity<List<BeerDto>> listBeers() {
+        return ResponseEntity.ok(beerService.listBeers());
     }
 }

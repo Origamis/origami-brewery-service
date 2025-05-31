@@ -7,6 +7,7 @@ import origamis.springframework.beerservice.mappers.BeerMapper;
 import origamis.springframework.beerservice.model.BeerDto;
 import origamis.springframework.beerservice.repositories.BeerRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -38,5 +39,12 @@ public class BeerServiceImpl implements BeerService {
         beer.setUpc(beerDto.getUpc());
 
         return beerMapper.toDto(beerRepository.save(beer));
+    }
+
+    @Override
+    public List<BeerDto> listBeers() {
+        return beerRepository.findAll().stream()
+                .map(beerMapper::toDto)
+                .toList();
     }
 }
