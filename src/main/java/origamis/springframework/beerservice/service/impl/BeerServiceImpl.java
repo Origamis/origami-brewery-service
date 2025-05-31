@@ -1,4 +1,4 @@
-package origamis.springframework.beerservice.service;
+package origamis.springframework.beerservice.service.impl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -6,6 +6,7 @@ import origamis.springframework.beerservice.exceptions.NotFoundException;
 import origamis.springframework.beerservice.mappers.BeerMapper;
 import origamis.springframework.beerservice.model.BeerDto;
 import origamis.springframework.beerservice.repositories.BeerRepository;
+import origamis.springframework.beerservice.service.BeerService;
 
 import java.util.List;
 import java.util.UUID;
