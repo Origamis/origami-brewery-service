@@ -7,7 +7,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-import origamis.springframework.beerservice.bootstrap.BeerLoader;
 import origamis.springframework.beerservice.model.BeerDto;
 import origamis.springframework.beerservice.model.BeerStyle;
 import origamis.springframework.beerservice.service.BeerService;
@@ -23,12 +22,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = BeerController.class)
 class BeerControllerTest {
 
+    public static final String BEER_UPC = "0631234200036";
+    
     @Autowired
     MockMvc mockMvc;
 
     @MockitoBean
     BeerService beerService;
-    
+
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -67,7 +68,7 @@ class BeerControllerTest {
         return BeerDto.builder()
                 .beerName("Corona")
                 .beerStyle(BeerStyle.ALE)
-                .upc(BeerLoader.BEER_1_UPC)
+                .upc(BEER_UPC)
                 .price(new BigDecimal("9.99"))
                 .build();
     }
