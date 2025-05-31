@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import origamis.springframework.beerservice.model.BeerDto;
+import origamis.springframework.beerservice.model.BeerInventoryDto;
 import origamis.springframework.beerservice.service.BeerInventoryService;
 
 import java.util.List;
@@ -27,11 +28,11 @@ public class BeerInventoryServiceImpl implements BeerInventoryService {
     public Integer getOnHandInventory(UUID beerId) {
         
         var response = restTemplate.exchange(inventoryHost + INVENTORY_PATH, HttpMethod.GET, null, 
-                new ParameterizedTypeReference<List<BeerDto>>() {}, beerId);
+                new ParameterizedTypeReference<List<BeerInventoryDto>>() {}, beerId);
         
         return Objects.requireNonNull(response.getBody())
                 .stream()
-                .mapToInt(BeerDto::getQuantityOnHand)
+                .mapToInt(BeerInventoryDto::getQuantityOnHand)
                 .sum();
     }
 }

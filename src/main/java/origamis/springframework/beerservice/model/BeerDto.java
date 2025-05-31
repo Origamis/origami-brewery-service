@@ -19,34 +19,34 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BeerDto {
-    
+
     @Null
     private UUID id;
-    
+
     @Null
     private Integer version;
-    
+
+    @Null
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ", shape=JsonFormat.Shape.STRING)
+    private OffsetDateTime createdDate;
+
+    @Null
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ", shape=JsonFormat.Shape.STRING)
+    private OffsetDateTime lastModifiedDate;
+
     @NotBlank
     private String beerName;
-    
-    @Null
-    @JsonFormat(pattern ="yyyy-MM-dd'T'HH:mm:ssz", shape = JsonFormat.Shape.STRING)
-    private OffsetDateTime createdDate;
-    
-    @Null
-    @JsonFormat(pattern ="yyyy-MM-dd'T'HH:mm:ssz", shape = JsonFormat.Shape.STRING)
-    private OffsetDateTime lastModifiedDate;
-    
+
     @NotNull
     private BeerStyle beerStyle;
 
     @NotNull
     private String upc;
-    
-    @NotNull
-    @Positive
+
     @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @Positive
+    @NotNull
     private BigDecimal price;
-    
+
     private Integer quantityOnHand;
 }
