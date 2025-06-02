@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface BeerService {
 
-    BeerDto getBeerById(UUID id, Boolean showInventoryOnHand);
+    BeerDto getBeerById(UUID beerId, Boolean showInventoryOnHand);
 
     BeerDto saveBeer(BeerDto beerDto);
 

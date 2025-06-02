@@ -1,6 +1,7 @@
 package origamis.springframework.beerservice.service.impl;
 
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import origamis.springframework.beerservice.exceptions.NotFoundException;
 import origamis.springframework.beerservice.mappers.BeerMapper;
@@ -18,16 +19,18 @@ public class BeerServiceImpl implements BeerService {
     private final BeerRepository beerRepository;
     private final BeerMapper beerMapper;
 
+    @Cacheable(value = "beerCache", key = "#beerId", condition = "#showInventoryOnHand == false")
     @Override
-    public BeerDto getBeerById(UUID id, Boolean showInventoryOnHand) {
+    public BeerDto getBeerById(UUID beerId, Boolean showInventoryOnHand) {
+        System.out.println("Fetching beer with ID: " + beerId + " from database");
         
         if (showInventoryOnHand) {
-            return beerMapper.toDtoWithInventory(beerRepository.findById(id).orElseThrow(
-                    () -> new NotFoundException("Beer not found with ID: " + id)
+            return beerMapper.toDtoWithInventory(beerRepository.findById(beerId).orElseThrow(
+                    () -> new NotFoundException("Beer not found with ID: " + beerId)
             ));
         } else {
-            return beerMapper.toDto(beerRepository.findById(id).orElseThrow(
-                    () -> new NotFoundException("Beer not found with ID: " + id)
+            return beerMapper.toDto(beerRepository.findById(beerId).orElseThrow(
+                    () -> new NotFoundException("Beer not found with ID: " + beerId)
             ));
         }
     }
@@ -49,9 +52,10 @@ public class BeerServiceImpl implements BeerService {
         return beerMapper.toDto(beerRepository.save(beer));
     }
 
+    @Cacheable(value = "beerListCache", condition = "#showInventoryOnHand == false")
     @Override
     public List<BeerDto> listBeers(Boolean showInventoryOnHand) {
-        
+        System.out.println("Fetching all beers from database");
         if (showInventoryOnHand) {
             return beerRepository.findAll().stream()
                     .map(beerMapper::toDtoWithInventory)
