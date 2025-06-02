@@ -14,4 +14,6 @@ public interface BeerService {
     BeerDto updateBeer(UUID beerId, BeerDto beerDto);
     
     List<BeerDto> listBeers(Boolean showInventoryOnHand);
+
+    BeerDto getBeerByUPC(String upc);
 }

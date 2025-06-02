@@ -6,4 +6,6 @@ import origamis.springframework.beerservice.domain.Beer;
 import java.util.UUID;
 
 public interface BeerRepository extends JpaRepository<Beer, UUID> {
+
+    Beer findBeerByUpc(String upc);
 }
